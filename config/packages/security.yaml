@@ -1,0 +1,62 @@
+# config/packages/security.yaml
+security:
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    password_hashers:
+        App\Entity\User: "auto"
+
+    firewalls:
+        # 1. Login endpoint (already exists)
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: App\Security\Authentication\CustomAuthenticationSuccessHandler
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        # 2. Refresh endpoint
+        api_refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            provider: app_user_provider
+            refresh_jwt:
+                check_path: /api/token/refresh
+        # 4. Logout end points
+        logout:
+            pattern: ^/api/logout
+            stateless: true
+            jwt: ~
+
+        # 5. Main API calls
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            provider: app_user_provider
+
+    access_control:
+        # 1) Public GET access to list and retrieve products
+        - { path: ^/api/products, methods: [GET], roles: PUBLIC_ACCESS }
+        # 2) Protected POST, PUT, PATCH, DELETE: require full authentication
+        - { path: ^/api/products, methods: [POST, PUT, PATCH, DELETE], roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/api/categories, methods: [GET], roles: PUBLIC_ACCESS }
+
+        - { path: ^/api/products/search, methods: [GET], roles: PUBLIC_ACCESS }
+
+        - { path: ^/api/webhook, methods: [POST], roles: PUBLIC_ACCESS }
+
+        - { path: ^/api/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

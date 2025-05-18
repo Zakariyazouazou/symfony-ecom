@@ -1,0 +1,18 @@
+gesdinet_jwt_refresh_token:
+    refresh_token_class: App\Entity\RefreshToken
+    ttl: 2592000                                  # 30 days in seconds
+    firewall: api                                 # must match your API firewall name
+    user_provider: app_user_provider              # your provider service ID
+    single_use: true                              # one‑time use refresh tokens (optional)
+
+    # Cookie settings
+    # token_parameter_name: AUTHENTICATION
+    cookie:
+        enabled: true
+        remove_token_from_body: false
+        # name:      REFRESH_TOKEN
+        http_only: true
+        secure:    true
+        same_site: strict
+        path:      /api/token/refresh
+        domain:    null

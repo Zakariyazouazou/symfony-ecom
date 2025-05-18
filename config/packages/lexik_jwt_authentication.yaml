@@ -1,0 +1,17 @@
+lexik_jwt_authentication:
+    secret_key:     '%env(resolve:JWT_SECRET_KEY)%'   # ← not "private_key_path"
+    public_key:     '%env(resolve:JWT_PUBLIC_KEY)%'   # ← not "public_key_path"
+    pass_phrase:    '%env(JWT_PASSPHRASE)%'
+    token_ttl: 3600 # in seconds, default is 3600
+
+    # Tell Lexik to read the refresh token from the cookie:
+    token_extractors:
+        authorization_header:
+            enabled: true
+        cookie:
+            enabled: true
+            name:    '%env(JWT_REFRESH_COOKIE_NAME)%'
+
+    # (Optional) Automatically set access token cookie on login
+    # set_cookies:
+    #     ACCESS_TOKEN: ~
