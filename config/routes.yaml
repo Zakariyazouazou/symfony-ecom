@@ -10,3 +10,4 @@ api_login_check:
 stripe_webhook:
     path: /api/webhook
     controller: App\Controller\WebhookController::handle
+

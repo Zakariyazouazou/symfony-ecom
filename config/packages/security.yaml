@@ -56,6 +56,9 @@ security:
 
         - { path: ^/api/webhook, methods: [POST], roles: PUBLIC_ACCESS }
 
+        - { path: ^/api/hello, methods: [GET], roles: PUBLIC_ACCESS }
+
+
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
