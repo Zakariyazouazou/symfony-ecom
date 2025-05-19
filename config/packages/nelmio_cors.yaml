@@ -8,7 +8,9 @@ nelmio_cors:
         # expose_headers: ['Link']
 
         allow_methods: ['*']
-        allow_origin: ['*']
+        allow_origin:
+            - 'https://your.frontend.com'   # your live front‑end
+            - 'http://localhost:3000'        # local React/Vue/whatever dev server
         allow_headers: ['*']
         allow_credentials: false    
         
