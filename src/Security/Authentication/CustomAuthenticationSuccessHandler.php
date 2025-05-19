@@ -82,7 +82,7 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
             ->withHttpOnly(true)
             ->withSecure(true)
             ->withPath('/api/token/refresh')
-            ->withSameSite('lax');
+            ->withSameSite('none');
 
         // $response->headers->setCookie($accessCookie);
         $response->headers->setCookie($refreshCookie);

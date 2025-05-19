@@ -13,6 +13,6 @@ gesdinet_jwt_refresh_token:
         # name:      REFRESH_TOKEN
         http_only: true
         secure:    true
-        same_site: strict
+        same_site: none
         path:      /api/token/refresh
         domain:    null
