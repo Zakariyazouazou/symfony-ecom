@@ -21,6 +21,10 @@ services:
             - "../src/DependencyInjection/"
             - "../src/Entity/"
             - "../src/Kernel.php"
+            
+    App\EventListener\CorsRequestListener:
+        tags:
+            - { name: kernel.event_subscriber }
 
     App\Security\Authentication\CustomAuthenticationSuccessHandler:
         arguments:

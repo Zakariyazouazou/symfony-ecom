@@ -10,6 +10,10 @@ security:
         App\Entity\User: "auto"
 
     firewalls:
+        dev_cors:
+            pattern: ^/
+            methods: [OPTIONS]
+            security: false
         # 1. Login endpoint (already exists)
         login:
             pattern: ^/api/login
@@ -63,6 +67,7 @@ security:
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS, methods: [POST, OPTIONS] }
+        
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/api, methods: [OPTIONS], roles: PUBLIC_ACCESS }
