@@ -1,22 +1,21 @@
 nelmio_cors:
     defaults:
         allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-        allow_origin: ["*"]
-        allow_headers: ['Content-Type', 'Authorization']
-        allow_credentials: false # <— must be true
-        expose_headers: ["Link"]
+        allow_origin: ["http://localhost:5173"]
+        allow_headers: ["*"]
+        allow_credentials: true # <— must be true
         max_age: 3600
 
     paths:
-        '^/': null
-        # '^/api/login_check':
-        #     allow_origin: ['http://localhost:5173']
-        #     allow_headers: ['Content-Type', 'Authorization']
-        #     allow_methods: ['POST', 'OPTIONS']  # POST must be listed here
-        #     max_age: 3600
-        # # '^/': null
-        # "^/api/":
-        #     allow_origin: ["http://localhost:5173"] # your React dev URL
-        #     allow_credentials: true # <— must be true
-        #     allow_headers: ["Content-Type", "Authorization"]
-        #     allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    # 1. Specific login endpoint FIRST
+        '^/api/login_check':
+            allow_origin: ['http://localhost:5173']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'OPTIONS']  # POST must be listed here
+            max_age: 3600
+        # '^/': null
+        "^/api/":
+            allow_origin: ["http://localhost:5173"] # your React dev URL
+            allow_credentials: true # <— must be true
+            allow_headers: ["Content-Type", "Authorization"]
+            allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
