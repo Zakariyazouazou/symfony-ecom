@@ -8,8 +8,14 @@ nelmio_cors:
 
     paths:
     # 1. Specific login endpoint FIRST
-        '^/api/':
-            allow_origin: ['*']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+        '^/api/login_check':
+            allow_origin: ['http://localhost:5173']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'OPTIONS']  # POST must be listed here
             max_age: 3600
+        # '^/': null
+        "^/api/":
+            allow_origin: ["http://localhost:5173"] # your React dev URL
+            allow_credentials: true # <— must be true
+            allow_headers: ["Content-Type", "Authorization"]
+            allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
