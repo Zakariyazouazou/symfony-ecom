@@ -11,6 +11,7 @@ nelmio_cors:
         allow_origin:
             - 'https://your.frontend.com'   # your live front‑end
             - 'http://localhost:3000'        # local React/Vue/whatever dev server
+            - 'http://localhost:5173'        # local React/Vu
         allow_headers: ['*']
         allow_credentials: false    
         
