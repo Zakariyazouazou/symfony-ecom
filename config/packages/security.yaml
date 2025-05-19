@@ -46,6 +46,9 @@ security:
             provider: app_user_provider
 
     access_control:
+        # Allow OPTIONS preflight for login
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS, methods: [POST, OPTIONS] }
+        
         # 1) Public GET access to list and retrieve products
         - { path: ^/api/products, methods: [GET], roles: PUBLIC_ACCESS }
         # 2) Protected POST, PUT, PATCH, DELETE: require full authentication

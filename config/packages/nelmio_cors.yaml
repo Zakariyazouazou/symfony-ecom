@@ -7,6 +7,11 @@ nelmio_cors:
         max_age: 3600
 
     paths:
+        '^/api/login_check':
+            allow_origin: ['http://localhost:5173']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['POST', 'OPTIONS']  # POST must be listed here
+            max_age: 3600
         # '^/': null
         "^/api/":
             allow_origin: ["http://localhost:5173"] # your React dev URL

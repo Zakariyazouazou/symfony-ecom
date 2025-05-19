@@ -81,8 +81,8 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
             ->withExpires($expiresAt)
             ->withHttpOnly(true)
             ->withSecure(true)
-            ->withPath('/api/token/refresh')
-            ->withSameSite('lax');
+            ->withDomain('zakariyazouazou.com') // 👈 Add your domain
+            ->withSameSite('None'); // 👈 Required for cross-origin
 
         // $response->headers->setCookie($accessCookie);
         $response->headers->setCookie($refreshCookie);
