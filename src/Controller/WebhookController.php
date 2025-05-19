@@ -12,7 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WebhookController extends AbstractController
 {
-    private string $endpointSecret = 'whsec_84d7ba0142345db2083ffdc4df55f1deb5409616076d1e747083835d8274ed45';
+    // // local endpoint
+    // private string $endpointSecret = 'whsec_84d7ba0142345db2083ffdc4df55f1deb5409616076d1e747083835d8274ed45';
+
+    // live endpoint
+    private string $endpointSecret = 'whsec_v8ol504V0jMUeD7Mt3TlPiwAFcwtQ6Ho';
 
     public function __construct(private EntityManagerInterface $em) {}
 
