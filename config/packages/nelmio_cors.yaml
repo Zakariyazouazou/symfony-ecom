@@ -7,6 +7,12 @@ nelmio_cors:
 
         max_age: 3600
     paths:
+        '^/api/login_check$':
+            allow_origin: ['http://localhost:5173']
+            allow_headers: ['Content-Type', 'Authorization']
+            allow_methods: ['OPTIONS', 'POST']
+            max_age:       3600
+            allow_credentials: true
         # '^/': null
         "^/api/":
             allow_origin: ["http://localhost:5173"] # your React dev URL
@@ -14,11 +20,6 @@ nelmio_cors:
             allow_headers: ["Content-Type", "Authorization"]
             allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
             # Allow *all* methods & headers on preflight for login_check
-        '^/api/login_check$':
-            allow_origin: ['http://localhost:5173']
-            allow_headers: ['Content-Type', 'Authorization']
-            allow_methods: ['OPTIONS', 'POST']
-            max_age:       3600
-            allow_credentials: true
+        
 
 

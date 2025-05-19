@@ -63,4 +63,6 @@ security:
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS, methods: [POST, OPTIONS] }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
