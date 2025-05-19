@@ -13,7 +13,7 @@ nelmio_cors:
             - "http://localhost:3000" # local React/Vue/whatever dev server
             - "http://localhost:5173" # local React/Vu
         allow_headers: ["*"]
-        allow_credentials: false
+        allow_credentials: true # <— must be true
 
         max_age: 3600
     paths:
