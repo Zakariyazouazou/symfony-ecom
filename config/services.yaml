@@ -4,8 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    stripe.secret_key: '%env(STRIPE_SECRET_KEY)%'
-    stripe.publishable_key: '%env(STRIPE_PUBLISHABLE_KEY)%'
+    stripe.secret_key: "%env(STRIPE_SECRET_KEY)%"
+    stripe.publishable_key: "%env(STRIPE_PUBLISHABLE_KEY)%"
+    jwt_refresh_token_ttl: "%env(JWT_REFRESH_TOKEN_TTL)%"
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -28,9 +29,15 @@ services:
             $refreshTokenTTL: "%env(JWT_REFRESH_TOKEN_TTL)%" # e.g. "P30D"
         tags: ["monolog.logger"] # optional
 
+    App\Security\Authentication\CustomRefreshSuccessHandler:
+        arguments:
+            $jwtManager: "@lexik_jwt_authentication.jwt_manager"
+            $refreshTokenManager: "@gesdinet.jwtrefreshtoken.refresh_token_manager"
+            $refreshTokenTTL: "%jwt_refresh_token_ttl%"
+
     # Ensure all controllers are public and tagged
     App\Controller\SecurityController:
-        tags: ['controller.service_arguments']
+        tags: ["controller.service_arguments"]
         public: true
         # arguments auto-wired by default
     # add more service definitions when explicit configuration is needed

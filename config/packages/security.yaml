@@ -26,6 +26,7 @@ security:
             provider: app_user_provider
             refresh_jwt:
                 check_path: /api/token/refresh
+                success_handler: App\Security\Authentication\CustomRefreshSuccessHandler
         # 4. Logout end points
         logout:
             pattern: ^/api/logout
