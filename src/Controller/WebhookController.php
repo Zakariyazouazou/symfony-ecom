@@ -16,7 +16,7 @@ class WebhookController extends AbstractController
     // private string $endpointSecret = 'whsec_84d7ba0142345db2083ffdc4df55f1deb5409616076d1e747083835d8274ed45';
 
     // live endpoint
-    private string $endpointSecret = 'whsec_v8ol504V0jMUeD7Mt3TlPiwAFcwtQ6Ho';
+    private string $endpointSecret = 'whsec_HlyX3W7hCZkUWyD6QcCIHr64FVyT5yVU';
 
     public function __construct(private EntityManagerInterface $em) {}
 
