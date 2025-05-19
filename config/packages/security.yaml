@@ -48,7 +48,7 @@ security:
 
     access_control:
         # Allow OPTIONS preflight for login
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS, methods: [POST, OPTIONS] }
+        - { path: ^/api/login_check, methods: [POST, OPTIONS]  , roles: PUBLIC_ACCESS}
         
         # 1) Public GET access to list and retrieve products
         - { path: ^/api/products, methods: [GET], roles: PUBLIC_ACCESS }
