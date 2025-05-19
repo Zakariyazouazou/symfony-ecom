@@ -47,27 +47,26 @@ security:
             provider: app_user_provider
 
     access_control:
-        # Allow OPTIONS preflight for login
-        - { path: ^/api/login_check, methods: [POST, OPTIONS]  , roles: PUBLIC_ACCESS}
+        # Allow OPTIONS preflight for all API routes to handle CORS
+        - { path: ^/api/, methods: [OPTIONS], roles: PUBLIC_ACCESS }
         
-        # 1) Public GET access to list and retrieve products
-        - { path: ^/api/products, methods: [GET], roles: PUBLIC_ACCESS }
-        # 2) Protected POST, PUT, PATCH, DELETE: require full authentication
-        - { path: ^/api/products, methods: [POST, PUT, PATCH, DELETE], roles: IS_AUTHENTICATED_FULLY }
-
-        - { path: ^/api/categories, methods: [GET], roles: PUBLIC_ACCESS }
-
-        - { path: ^/api/products/search, methods: [GET], roles: PUBLIC_ACCESS }
-
-        - { path: ^/api/webhook, methods: [POST], roles: PUBLIC_ACCESS }
-
-        - { path: ^/api/hello, methods: [GET], roles: PUBLIC_ACCESS }
-
-
-        - { path: ^/api/register, roles: PUBLIC_ACCESS }
-        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
+        # Authentication routes - all public
+        - { path: ^/api/login_check, methods: [POST], roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS }
         
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        # Public API endpoints
+        - { path: ^/api/products$, methods: [GET], roles: PUBLIC_ACCESS }
+        - { path: ^/api/products/search, methods: [GET], roles: PUBLIC_ACCESS }
+        - { path: ^/api/categories, methods: [GET], roles: PUBLIC_ACCESS }
+        - { path: ^/api/webhook, methods: [POST], roles: PUBLIC_ACCESS }
+        - { path: ^/api/hello, methods: [GET], roles: PUBLIC_ACCESS }
+        
+        # Protected product operations
+        - { path: ^/api/products, methods: [POST, PUT, PATCH, DELETE], roles: IS_AUTHENTICATED_FULLY }
+        
+        # Catch-all - require authentication for all other API routes
+        - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
 
  
