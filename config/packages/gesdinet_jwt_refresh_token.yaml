@@ -11,8 +11,9 @@ gesdinet_jwt_refresh_token:
         enabled: true
         remove_token_from_body: false
         # name:      REFRESH_TOKEN
+        lifetime:    604800
         http_only: true
         secure:    true
         same_site: none
         path:      /api/token/refresh
-        domain:    null
+        domain:      '.zakariyazouazou.com'
