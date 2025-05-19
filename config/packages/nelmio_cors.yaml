@@ -1,7 +1,7 @@
 nelmio_cors:
     defaults:
         allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-        allow_origin: ["http://localhost:5173"]
+        allow_origin: ["http://localhost:5173/"]
         allow_headers: ['Content-Type', 'Authorization']
         allow_credentials: true # <— must be true
         expose_headers: ["Link"]
