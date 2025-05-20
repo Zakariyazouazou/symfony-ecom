@@ -15,6 +15,19 @@ class UserController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $em) {}
 
+    #[Route(path: '/testLogin', name: 'test_login', methods: ['GET'])]
+    public function testLogin(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // Optional: Log or inspect $data if needed
+        // $username = $data['username'] ?? null;
+        // $password = $data['password'] ?? null;
+
+        return new JsonResponse(['message' => 'Test login received'], Response::HTTP_OK);
+    }
+
+
     #[Route(path: '/{id}', name: 'show', methods: ['GET'])]
     public function show(int $id): JsonResponse
     {
@@ -36,19 +49,5 @@ class UserController extends AbstractController
         ];
 
         return new JsonResponse($data);
-    }
-
-
-
-    #[Route(path: '/testLogin', name: 'test_login', methods: ['GET'])]
-    public function testLogin(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-
-        // Optional: Log or inspect $data if needed
-        // $username = $data['username'] ?? null;
-        // $password = $data['password'] ?? null;
-
-        return new JsonResponse(['message' => 'Test login received'], Response::HTTP_OK);
     }
 }
