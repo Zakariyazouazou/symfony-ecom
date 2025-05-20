@@ -57,7 +57,7 @@ security:
         - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS }
         
         # Public API endpoints
-        - { path: ^/api/products$, methods: [GET], roles: PUBLIC_ACCESS }
+        - { path: ^/api/products, methods: [GET], roles: PUBLIC_ACCESS }
         - { path: ^/api/products/search, methods: [GET], roles: PUBLIC_ACCESS }
         - { path: ^/api/categories, methods: [GET], roles: PUBLIC_ACCESS }
         - { path: ^/api/webhook, methods: [POST], roles: PUBLIC_ACCESS }
