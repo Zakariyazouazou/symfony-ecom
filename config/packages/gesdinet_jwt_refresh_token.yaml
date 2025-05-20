@@ -8,12 +8,9 @@ gesdinet_jwt_refresh_token:
     # Cookie settings
     # token_parameter_name: AUTHENTICATION
     cookie:
-        enabled: true
-        remove_token_from_body: false
-        # name:      REFRESH_TOKEN
-        # lifetime:    604800
-        http_only: true
-        secure:    true
-        same_site: none
-        path:      /api/token/refresh
-        domain:      'symfony-app.zakariyazouazou.com'
+        enabled:       true
+        path:          '/'              # ← Scope to entire app
+        domain:        'localhost'      # ← Match your frontend host
+        secure:        false            # ← false for HTTP dev
+        http_only:     true
+        same_site:     'none'           # ← allow cross-site

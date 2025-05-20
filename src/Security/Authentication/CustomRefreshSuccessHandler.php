@@ -74,7 +74,7 @@ class CustomRefreshSuccessHandler implements AuthenticationSuccessHandlerInterfa
             ->withExpires($expiresAt)
             ->withHttpOnly(true)
             ->withSecure(true)
-            ->withPath('/api/token/refresh')
+            ->withPath('/')
             ->withSameSite('none');
 
         $response->headers->setCookie($cookie);

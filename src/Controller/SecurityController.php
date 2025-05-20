@@ -36,17 +36,32 @@ class SecurityController
 
         // 4) Clear the cookie
         $cookie = Cookie::create('refresh_token')
+            // online token
+            // ->withValue('')
+            // ->withExpires(new \DateTime('-1 day'))
+            // ->withPath('/api/token/refresh')
+            // ->withHttpOnly(true)
+            // ->withSecure(true)
+            // ->withSameSite('lax');
+
+
             ->withValue('')
             ->withExpires(new \DateTime('-1 day'))
-            ->withPath('/api/token/refresh')
+            ->withPath('/')
             ->withHttpOnly(true)
             ->withSecure(true)
-            ->withSameSite('None');
+            ->withSameSite('strict');
+
+
+
+
+
 
         $response = new JsonResponse(
             ['message' => 'Logged out successfully'],
             JsonResponse::HTTP_OK
         );
+
         $response->headers->setCookie($cookie);
 
         return $response;
