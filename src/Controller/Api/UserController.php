@@ -28,26 +28,26 @@ class UserController extends AbstractController
     }
 
 
-    #[Route(path: '/{id}', name: 'show', methods: ['GET'])]
-    public function show(int $id): JsonResponse
-    {
-        $user = $this->em->getRepository(User::class)->find($id);
+    // #[Route(path: '/{id}', name: 'show', methods: ['GET'])]
+    // public function show(int $id): JsonResponse
+    // {
+    //     $user = $this->em->getRepository(User::class)->find($id);
 
-        if (!$user) {
-            return new JsonResponse(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
-        }
+    //     if (!$user) {
+    //         return new JsonResponse(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
+    //     }
 
-        $data = [
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'username' => $user->getUsername(),
-            'firstName' => $user->getFirstName(),
-            'lastName' => $user->getLastName(),
-            'roles' => $user->getRoles(),
-            'createdAt' => $user->getCreatedAt()->format(DATE_ATOM),
-            'updatedAt' => $user->getUpdatedAt()->format(DATE_ATOM),
-        ];
+    //     $data = [
+    //         'id' => $user->getId(),
+    //         'email' => $user->getEmail(),
+    //         'username' => $user->getUsername(),
+    //         'firstName' => $user->getFirstName(),
+    //         'lastName' => $user->getLastName(),
+    //         'roles' => $user->getRoles(),
+    //         'createdAt' => $user->getCreatedAt()->format(DATE_ATOM),
+    //         'updatedAt' => $user->getUpdatedAt()->format(DATE_ATOM),
+    //     ];
 
-        return new JsonResponse($data);
-    }
+    //     return new JsonResponse($data);
+    // }
 }
