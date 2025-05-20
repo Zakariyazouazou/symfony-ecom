@@ -21,6 +21,11 @@ lexik_jwt_authentication:
         cookie:
             enabled: false
 
+             # Make sure no Set-Cookie directives are ever emitted
+    set_cookies: []  
+    # (this also ensures the token stays in the JSON body)
+    remove_token_from_body_when_cookies_used: false  
+
     # (Optional) Automatically set access token cookie on login
     # set_cookies:
     #     ACCESS_TOKEN: ~
