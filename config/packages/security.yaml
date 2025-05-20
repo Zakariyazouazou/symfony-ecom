@@ -49,6 +49,9 @@ security:
     access_control:
         # Allow OPTIONS preflight for all API routes to handle CORS
         - { path: ^/api/, methods: [OPTIONS], roles: PUBLIC_ACCESS }
+
+        # test route call 
+        - { path: ^/api/user/testLogin, methods: [POST], roles: PUBLIC_ACCESS }
         
         # Authentication routes - all public
         - { path: ^/api/login_check, methods: [POST], roles: PUBLIC_ACCESS }
