@@ -5,12 +5,21 @@ lexik_jwt_authentication:
     token_ttl: 3600 # in seconds, default is 3600
 
     # Tell Lexik to read the refresh token from the cookie:
+    # token_extractors:
+    #     authorization_header:
+    #         enabled: true
+    #     cookie:
+    #         enabled: true
+    #         name:    '%env(JWT_REFRESH_COOKIE_NAME)%'
+
+
     token_extractors:
         authorization_header:
             enabled: true
+            prefix: 'Bearer'
+            name: 'Authorization'
         cookie:
-            enabled: true
-            name:    '%env(JWT_REFRESH_COOKIE_NAME)%'
+            enabled: false
 
     # (Optional) Automatically set access token cookie on login
     # set_cookies:
