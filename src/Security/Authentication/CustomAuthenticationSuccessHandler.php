@@ -81,7 +81,7 @@ class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler
             ->withExpires($expiresAt)
             ->withHttpOnly(true)
             ->withSecure(true)
-            ->withDomain('zakariyazouazou.com') // 👈 Add your domain
+            ->withDomain('symfony-app.zakariyazouazou.com') // 👈 Add your domain
             ->withSameSite('None'); // 👈 Required for cross-origin
 
         // $response->headers->setCookie($accessCookie);
