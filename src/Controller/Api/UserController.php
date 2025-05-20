@@ -15,7 +15,7 @@ class UserController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $em) {}
 
-    #[Route(path: '/testLogin', name: 'test_login', methods: ['GET'])]
+    #[Route(path: '/testLogin', name: 'test_login', methods: ['POST'])]
     public function testLogin(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
