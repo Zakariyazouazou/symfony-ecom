@@ -41,7 +41,7 @@ class SecurityController
             ->withPath('/api/token/refresh')
             ->withHttpOnly(true)
             ->withSecure(true)
-            ->withSameSite('strict');
+            ->withSameSite('None');
 
         $response = new JsonResponse(
             ['message' => 'Logged out successfully'],
