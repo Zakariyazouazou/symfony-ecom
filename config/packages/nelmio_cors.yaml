@@ -1,18 +1,24 @@
+# config/packages/nelmio_cors.yaml
 nelmio_cors:
     defaults:
+        # Enable regex-based matching of origins
+        origin_regex: true                             
+        allow_origin: []                               # default empty
+        allow_headers: ["Content-Type", "Authorization"]
         allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-        allow_origin: ["http://localhost:5173", "https://sym-react.netlify.app"]  # No trailing slash
-        allow_headers: ["*"]
         allow_credentials: true
         max_age: 3600
+
     paths:
-        '^/api/login_check':
-            allow_origin: ['http://localhost:5173', "https://sym-react.netlify.app"]  # No trailing slash
-            allow_headers: ['Content-Type', 'Authorization']
-            allow_methods: ['POST', 'OPTIONS']
-            max_age: 3600
-        "^/api/":
-            allow_origin: ["http://localhost:5173", "https://sym-react.netlify.app"]  # No trailing slash
-            allow_credentials: true
+        # Match all API routes
+        '^/api/':
+            # With origin_regex=true above, give a list of regex patterns:
+            # - allow any subdomain of example.com (https and http)
+            # - allow localhost on any port
+            allow_origin: 
+                - '^https?://([a-z0-9-]+\.)*example\.com$'  
+                - '^http://localhost(:[0-9]+)?$'            
             allow_headers: ["Content-Type", "Authorization"]
             allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+            allow_credentials: true
+            max_age: 3600
