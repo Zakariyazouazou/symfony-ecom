@@ -1,21 +1,18 @@
 nelmio_cors:
     defaults:
         allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-        allow_origin: ["http://localhost:5173" , "https://sym-react.netlify.app/"]
+        allow_origin: ["http://localhost:5173", "https://sym-react.netlify.app"]  # No trailing slash
         allow_headers: ["*"]
-        allow_credentials: true # <— must be true
+        allow_credentials: true
         max_age: 3600
-
     paths:
-    # 1. Specific login endpoint FIRST
         '^/api/login_check':
-            allow_origin: ['http://localhost:5173' , "https://sym-react.netlify.app/"]
+            allow_origin: ['http://localhost:5173', "https://sym-react.netlify.app"]  # No trailing slash
             allow_headers: ['Content-Type', 'Authorization']
-            allow_methods: ['POST', 'OPTIONS']  # POST must be listed here
+            allow_methods: ['POST', 'OPTIONS']
             max_age: 3600
-        # '^/': null
         "^/api/":
-            allow_origin: ["http://localhost:5173" , "https://sym-react.netlify.app/"] # your React dev URL
-            allow_credentials: true # <— must be true
+            allow_origin: ["http://localhost:5173", "https://sym-react.netlify.app"]  # No trailing slash
+            allow_credentials: true
             allow_headers: ["Content-Type", "Authorization"]
             allow_methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
