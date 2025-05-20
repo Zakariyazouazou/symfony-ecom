@@ -40,7 +40,7 @@ class UserController extends AbstractController
 
 
 
-    #[Route(path: '/testLogin', name: 'test_login', methods: ['POST'])]
+    #[Route(path: '/testLogin', name: 'test_login', methods: ['GET'])]
     public function testLogin(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

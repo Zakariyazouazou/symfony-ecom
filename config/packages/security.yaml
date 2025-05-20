@@ -51,7 +51,7 @@ security:
         - { path: ^/api/, methods: [OPTIONS], roles: PUBLIC_ACCESS }
 
         # test route call 
-        - { path: ^/api/user/testLogin, methods: [POST], roles: PUBLIC_ACCESS }
+        - { path: ^/api/user/testLogin, methods: [GET], roles: PUBLIC_ACCESS }
         
         # Authentication routes - all public
         - { path: ^/api/login_check, methods: [POST], roles: PUBLIC_ACCESS }
