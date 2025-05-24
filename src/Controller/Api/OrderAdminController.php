@@ -2,8 +2,10 @@
 // src/Controller/Api/OrdersListController.php
 namespace App\Controller\Api;
 
+use App\Entity\OrderItems;
 use App\Entity\Orders;
 use App\Repository\OrdersRepository;
+use App\Repository\ProductImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -79,31 +81,32 @@ class OrderAdminController extends AbstractController
     #[Route('/api/orders/{orderId}/items_details', name: 'api_order_items_details', methods: ['GET'])]
     public function getOrderItemsWithImages(
         int $orderId,
-        OrdersRepository $ordersRepo
+        OrdersRepository $ordersRepo,
+        ProductImageRepository $imageRepo
     ): JsonResponse {
         $order = $ordersRepo->find($orderId);
-
         if (!$order) {
             return $this->json(['error' => "Order #$orderId not found"], 404);
         }
 
-        $items = $order->getOrderId();
+        $items = $order->getOrderId();  // your collection of OrderItems
 
-        $data = array_map(function ($item) {
+        $data = array_map(function (OrderItems $item) use ($imageRepo) {
             $product = $item->getProductId();
 
-            // Get first image if exists
-            $image = null;
-            if (!$product->getFilename()->isEmpty()) {
-                $imageEntity = $product->getFilename()->first();
-                $image = method_exists($imageEntity, 'getFilename') ? $imageEntity->getFilename() : null;
-            }
+            // fetch exactly one ProductImage, sorted by position ASC
+            $firstImage = $imageRepo->findOneBy(
+                ['product_id' => $product],
+                ['position'   => 'ASC'],
+                1
+            );
 
             return [
                 'item_id'       => $item->getId(),
                 'product_id'    => $product->getId(),
                 'product_name'  => $product->getName(),
-                'product_image' => $image,
+                // null if no image; otherwise URL (you could also use getFilename())
+                'product_image' => $firstImage?->getUrl(),
                 'unit_price'    => $item->getUnitPrice(),
                 'quantity'      => $item->getQuantity(),
                 'total_price'   => $item->getTotalPrice(),

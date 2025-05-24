@@ -1,6 +1,6 @@
 nelmio_cors:
     defaults:
-        allow_origin:        ['http://localhost:5173', 'https://sym-react.netlify.app']
+        allow_origin:        ['http://localhost:5173', 'https://sym-react.netlify.app'  , 'https://symfony-front.zakariyazouazou.com']
         allow_headers:       ['Content-Type', 'Authorization']
         allow_methods:       ['GET','POST','PUT','PATCH','DELETE','OPTIONS']
         allow_credentials:   true
