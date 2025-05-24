@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\ProductImage;
 use App\Repository\CategoryRepository;
+use App\Repository\OrderItemsRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -315,32 +316,41 @@ class ProductController extends AbstractController
 
     // Delete single product depend the id
     #[Route('/api/products/{id}', name: 'api_product_delete', methods: ['DELETE'])]
-    public function delete(int $id, ProductRepository $repo): JsonResponse
-    {
-        $product = $repo->find($id);
+    public function delete(
+        int $id,
+        ProductRepository $productRepo,
+        OrderItemsRepository $itemsRepo        // ← inject this
+    ): JsonResponse {
+        $product = $productRepo->find($id);
         if (!$product) {
             return $this->json([
-                'status' => 'error',
-                'message' => 'Product not found.'
+                'status'  => 'error',
+                'message' => 'Product not found.',
             ], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        // Remove associated images
+        // 1) manually fetch + delete all OrderItems for this product
+        $orderItems = $itemsRepo->findBy([
+            'product_id' => $product
+        ]);
+        foreach ($orderItems as $oi) {
+            $this->em->remove($oi);
+        }
+
+        // 2) delete all ProductImage (you already had this)
         foreach ($product->getFilename() as $image) {
             $this->em->remove($image);
         }
-        // Remove product itself
+
+        // 3) now you can safely delete the product itself
         $this->em->remove($product);
         $this->em->flush();
 
         return $this->json([
-            'status' => 'success',
-            'message' => 'Product deleted successfully.'
+            'status'  => 'success',
+            'message' => 'Product (and its images & order-items) deleted.',
         ], JsonResponse::HTTP_OK);
     }
-
-
-
 
 
     #[Route('/api/products/{id}', name: 'api_product_update', methods: ['PATCH'])]
