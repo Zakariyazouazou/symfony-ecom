@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Orders;
@@ -14,10 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class WebhookController extends AbstractController
 {
     // // local endpoint
-    private string $endpointSecret = 'whsec_84d7ba0142345db2083ffdc4df55f1deb5409616076d1e747083835d8274ed45';
+    // private string $endpointSecret = 'whsec_84d7ba0142345db2083ffdc4df55f1deb5409616076d1e747083835d8274ed45';
 
     // live endpoint
-    // private string $endpointSecret = 'whsec_HlyX3W7hCZkUWyD6QcCIHr64FVyT5yVU';
+    private string $endpointSecret = 'whsec_HlyX3W7hCZkUWyD6QcCIHr64FVyT5yVU';
 
     public function __construct(private EntityManagerInterface $em) {}
 
@@ -29,10 +28,8 @@ class WebhookController extends AbstractController
 
         try {
             $event = Webhook::constructEvent(
-                $payload,
-                $sigHeader,
-                $this->endpointSecret
-            );
+                $payload, $sigHeader, $this->endpointSecret
+            );  
         } catch (\UnexpectedValueException | \Stripe\Exception\SignatureVerificationException $e) {
             return new Response('Invalid payload or signature', 400);
         }
