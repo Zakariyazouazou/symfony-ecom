@@ -19,8 +19,54 @@ class CategoryApiController extends AbstractController
         private CategoryRepository    $categoryRepo,
         private ProductRepository     $productRepo,
         private SluggerInterface      $slugger
-        
+
     ) {}
+
+
+    #[Route('/api/categories', name: 'api_category_create', methods: ['POST'])]
+    public function createCategory(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        // Validate name (you can adjust which fields are required)
+        if (empty($data['name']) || trim($data['name']) === '') {
+            return $this->json([
+                'status'  => 'error',
+                'message' => 'Name is required.',
+            ], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $category = new Category();
+        $category->setName(trim($data['name']));
+        // slug optional: generate from name if not passed
+        $slugSource = isset($data['slug']) && trim($data['slug']) !== ''
+            ? trim($data['slug'])
+            : $data['name'];
+        $category->setSlug((string) $this->slugger->slug($slugSource));
+
+        if (isset($data['description'])) {
+            $category->setDescription($data['description']);
+        }
+
+        $now = new \DateTimeImmutable();
+        $category->setCreatedAt($now);
+        $category->setUpdatedAt($now);
+
+        $this->em->persist($category);
+        $this->em->flush();
+
+        return $this->json([
+            'status'   => 'success',
+            'category' => [
+                'id'          => $category->getId(),
+                'name'        => $category->getName(),
+                'slug'        => $category->getSlug(),
+                'description' => $category->getDescription(),
+            ],
+        ], JsonResponse::HTTP_CREATED);
+    }
+
+
 
     /**
      * PATCH /api/categories/{id}
